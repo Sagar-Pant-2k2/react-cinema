@@ -16,7 +16,7 @@ export default () => {
             try {
                 const res = await axios.get(requests.fetchPopular);
                 if (res.status === 200) {
-                    console.log("this is response", res)
+                 
                     const randIndex = Math.floor(Math.random() * res.data.results.length);
 
                     setResponse(res.data.results[randIndex]); // Set response data, not the whole response object

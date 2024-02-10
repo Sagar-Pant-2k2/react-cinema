@@ -36,11 +36,10 @@ export default () => {
                 if (!response_movie_id.ok) throw new Error({ message: "Error" });
 
                 const movieData = await response_movie_id.json();
-                console.log(movieData);
                 setData(movieData);
             }
             catch (error) {
-                console.log(error);
+        
                 setError({ "message": "some error occured" });
             }
             setLoading(false)
@@ -48,7 +47,7 @@ export default () => {
         fetchMovie();
     }, [url_movie_id]);
 
-    console.log("these are similar", data ? data.similar.results : "not")
+    
     return (
         <>
             {loading && <h1>Loading data</h1>}

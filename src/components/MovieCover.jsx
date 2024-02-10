@@ -21,7 +21,7 @@ export default ({ backDropPath, video, videos }) => {
         };
     }, []);
 
-    // console.log(video, videos)
+
     const opts = {
         height: deviceHeight,
         width: deviceWidth,
