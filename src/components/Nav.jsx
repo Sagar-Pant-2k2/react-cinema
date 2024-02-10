@@ -23,7 +23,7 @@ export default () => {
 
     return (
         <nav className={`main-navigation ${flag ? 'scrolled' : ''}`}>
-            <img src={logo} id='logo' onClick={()=>navigate('/')}></img>
+            <img src={logo} id='logo' onClick={() => navigate('/')}></img>
         </nav>
     );
 };

@@ -12,19 +12,19 @@ export default () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
-    
+
     const url_movie_id = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,similar`
 
     const scrollToTop = () => {
-        const scrollStep = -window.scrollY / (500 / 15); 
+        const scrollStep = -window.scrollY / (500 / 15);
         const scrollInterval = setInterval(() => {
-          if (window.scrollY !== 0) {
-            window.scrollBy(0, scrollStep);
-          } else {
-            clearInterval(scrollInterval);
-          }
-        }, 15); 
-      };
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+            }
+        }, 15);
+    };
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -32,7 +32,7 @@ export default () => {
             scrollToTop();
             try {
                 const response_movie_id = await fetch(url_movie_id);
-                
+
                 if (!response_movie_id.ok) throw new Error({ message: "Error" });
 
                 const movieData = await response_movie_id.json();
@@ -48,7 +48,7 @@ export default () => {
         fetchMovie();
     }, [url_movie_id]);
 
-    console.log("these are similar",data?data.similar.results:"not")
+    console.log("these are similar", data ? data.similar.results : "not")
     return (
         <>
             {loading && <h1>Loading data</h1>}
@@ -61,9 +61,9 @@ export default () => {
                         <h1>MOVIE NAME : <span className="movie-name">{data.title || data.name}</span></h1>
                         {data.tagline && <h1 className="movie-tagline">"{data.tagline}"</h1>}
                         <h1>Overview : </h1><p> {data.overview}</p>
-                        
+
                     </div>
-                    {data?data.similar && <><h1>Similar Movies</h1><SimilarMovies data = {data.similar.results} /></>:<></>}
+                    {data ? data.similar && <><h1>Similar Movies</h1><SimilarMovies data={data.similar.results} /></> : <></>}
                 </>
             }
         </>

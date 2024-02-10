@@ -16,11 +16,11 @@ export default () => {
             try {
                 const res = await axios.get(requests.fetchPopular);
                 if (res.status === 200) {
-                    console.log("this is response" ,res)
+                    console.log("this is response", res)
                     const randIndex = Math.floor(Math.random() * res.data.results.length);
-                  
+
                     setResponse(res.data.results[randIndex]); // Set response data, not the whole response object
-                    
+
                 } else {
                     throw new Error('Error occurred'); // Throw an error for non-200 status codes
                 }
@@ -30,25 +30,25 @@ export default () => {
             setLoading(false);
         };
         fetchPopular();
-        
+
     }, []);
     const navigate = useNavigate();
-    
+
     return (<>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {response && 
-        <div className="banner" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${response.backdrop_path})`}}>
-            <div className="banner-box">
-                <h1 className="banner-title">{response.title}</h1>
-                <h2 className="banner-description">{response.overview.length < 200 ? response.overview : response.overview.slice(0, 200) + '...'}
-</h2>
-                <div className="banner-buttons">
-                    <button className="banner-button" onClick={()=>navigate(`/movie/${response.id}`)}>More</button>
+        {response &&
+            <div className="banner" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${response.backdrop_path})` }}>
+                <div className="banner-box">
+                    <h1 className="banner-title">{response.title}</h1>
+                    <h2 className="banner-description">{response.overview.length < 200 ? response.overview : response.overview.slice(0, 200) + '...'}
+                    </h2>
+                    <div className="banner-buttons">
+                        <button className="banner-button" onClick={() => navigate(`/movie/${response.id}`)}>More</button>
+                    </div>
                 </div>
-            </div>
-            <div className="banner-fade"></div>
-        </div>}
+                <div className="banner-fade"></div>
+            </div>}
     </>
     );
 }

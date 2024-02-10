@@ -12,7 +12,7 @@ const router = createBrowserRouter([
   }
 ])
 export default () => {
-  return <RouterProvider router={router}/>
+  return <RouterProvider router={router} />
 }
 
 // http://api.themoviedb.org/3/movie/550?api_key=907a9983cf86e54d69fddbca9b092d1b
