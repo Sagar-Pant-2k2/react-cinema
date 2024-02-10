@@ -15,10 +15,21 @@ export default () => {
     
     const url_movie_id = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=videos,similar`
 
+    const scrollToTop = () => {
+        const scrollStep = -window.scrollY / (500 / 15); 
+        const scrollInterval = setInterval(() => {
+          if (window.scrollY !== 0) {
+            window.scrollBy(0, scrollStep);
+          } else {
+            clearInterval(scrollInterval);
+          }
+        }, 15); 
+      };
 
     useEffect(() => {
         const fetchMovie = async () => {
             setLoading(true);
+            scrollToTop();
             try {
                 const response_movie_id = await fetch(url_movie_id);
                 

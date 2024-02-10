@@ -1,3 +1,5 @@
+//TODO : scroll to top
+//issue : trailer state is not setting back to false  
 import { useState,useEffect } from "react"
 import YouTube from "react-youtube"
 
@@ -13,13 +15,13 @@ export default ({ backDropPath, video, videos }) => {
       };
   
       window.addEventListener('resize', handleResize);
-  
+    
       return () => {
         window.removeEventListener('resize', handleResize);
       };
     }, []);
 
-    console.log(video, videos)
+    // console.log(video, videos)
     const opts = {
         height: deviceHeight,
         width: deviceWidth,
