@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import axios from '../axios';
 import React, { useEffect, useState } from 'react';
 
@@ -26,7 +27,7 @@ export default ({ label, method, backdrop }) => {
         }, 2000);
 
     }, [method]);
-
+    const navigate = useNavigate();
     return (
         <div className="movie-row">
             <h1>{label}</h1>
@@ -45,11 +46,11 @@ export default ({ label, method, backdrop }) => {
                             <img
                                 onMouseOver={() => setActive(movie.id)}
                                 onMouseLeave={() => setActive(-1)}
+                                onClick={()=>navigate(`/movie/${movie.id}`)}
                                 key={movie.id}
                                 src={"https://image.tmdb.org/t/p/original" + (backdrop ? movie.backdrop_path : movie.poster_path)}
                                 className={`movie-row-item ${active === -1 ? '' : ((active !== movie.id)?"notActive":"active")}`}
                             />
-                            
                             </div>
                         )
                     }

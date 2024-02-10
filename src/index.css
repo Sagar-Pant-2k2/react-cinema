@@ -84,3 +84,33 @@ body {
 .active {
   z-index: 1000;
 }
+
+.movie-tagline{
+  color: red;
+}
+
+.movie-details h1 {
+  margin-bottom: 20px;
+}
+
+.movie-details p {
+  margin: 10px;
+}
+.z-index {
+  z-index: 1000;
+}
+
+.movie-cover {
+  position: relative;
+}
+.youtube {
+  
+  
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 900; /* Set a lower z-index value for the YouTube player */
+  
+}

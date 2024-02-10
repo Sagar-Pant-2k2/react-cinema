@@ -3,6 +3,7 @@ import bannerImage from '../../public/Images/banner-Image.webp';
 import './banner.css'
 import axios from '../axios'
 import requests from '../requests';
+import { useNavigate } from 'react-router-dom';
 
 export default () => {
     const [response, setResponse] = useState(null);
@@ -31,7 +32,8 @@ export default () => {
         fetchPopular();
         
     }, []);
-    console.log("ye h id ",response && response.id);
+    const navigate = useNavigate();
+    
     return (<>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
@@ -42,7 +44,7 @@ export default () => {
                 <h2 className="banner-description">{response.overview.length < 200 ? response.overview : response.overview.slice(0, 200) + '...'}
 </h2>
                 <div className="banner-buttons">
-                    <button className="banner-button">MORE</button>
+                    <button className="banner-button" onClick={()=>navigate(`/movie/${response.id}`)}>More</button>
                 </div>
             </div>
             <div className="banner-fade"></div>
