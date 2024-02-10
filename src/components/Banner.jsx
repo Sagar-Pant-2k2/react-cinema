@@ -1,17 +1,52 @@
+import { useEffect, useState } from 'react';
 import bannerImage from '../../public/Images/banner-Image.webp';
 import './banner.css'
+import axios from '../axios'
+import requests from '../requests';
 
 export default () => {
-    return (
-        <div className="banner" style={{backgroundImage: `url(${bannerImage})`}}>
+    const [response, setResponse] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPopular = async () => {
+            setLoading(true);
+            try {
+                const res = await axios.get(requests.fetchPopular);
+                if (res.status === 200) {
+                    console.log("this is response" ,res)
+                    const randIndex = Math.floor(Math.random() * res.data.results.length);
+                  
+                    setResponse(res.data.results[randIndex]); // Set response data, not the whole response object
+                    
+                } else {
+                    throw new Error('Error occurred'); // Throw an error for non-200 status codes
+                }
+            } catch (err) {
+                setError(err.message); // Set error message received from the API response
+            }
+            setLoading(false);
+        };
+        fetchPopular();
+        
+    }, []);
+    console.log("ye h id ",response && response.id);
+    return (<>
+        {loading && <p>Loading...</p>}
+        {error && <p>Error: {error}</p>}
+        {response && 
+        <div className="banner" style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${response.backdrop_path})`}}>
             <div className="banner-box">
-                <h1 className="banner-title">Title</h1>
-                <h2 className="banner-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, enim?lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eum debitis minus quod saepe sunt sint ipsa sequi totam aspernatur!</h2>
+                <h1 className="banner-title">{response.title}</h1>
+                <h2 className="banner-description">{response.overview.length < 200 ? response.overview : response.overview.slice(0, 200) + '...'}
+</h2>
                 <div className="banner-buttons">
                     <button className="banner-button">MORE</button>
                 </div>
             </div>
             <div className="banner-fade"></div>
-        </div>
+        </div>}
+    </>
     );
 }

@@ -1,4 +1,28 @@
+import { useEffect, useState } from 'react';
+import logo from '../../public/Images/ReactCinema.png'
+export default () => {
+    const [flag, setFlag] = useState(false);
 
-export default ()=>{
-    return <nav className="main-navigation"><h2>Left</h2><h2>right</h2></nav>
-}   
+    useEffect(() => {
+        const handleScroll = () => {
+            let dist = window.scrollY;
+            if (dist > 200) {
+                setFlag(true);
+            } else {
+                setFlag(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    return (
+        <nav className={`main-navigation ${flag ? 'scrolled' : ''}`}>
+            <img src={logo} id='logo'></img>
+        </nav>
+    );
+};
